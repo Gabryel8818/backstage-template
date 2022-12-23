@@ -1,0 +1,8 @@
+<h1>Posts</h1>
+<ul>
+
+  <li>{{ item.title }}</li>
+
+  <li>{{ item.title }}</li>
+
+</ul>
