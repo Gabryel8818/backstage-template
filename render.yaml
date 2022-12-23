@@ -1,0 +1,12 @@
+name: juninho-brasileiro
+repo: github.com?owner=gabryel8818&repo=backstage-template
+envzinha: stg
+
+
+
+  - stg
+  - "TESTE: s"
+
+  - sdx
+  - "TESTE: s"
+
