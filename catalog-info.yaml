@@ -1,0 +1,6 @@
+<h1>Posts</h1>
+<ul>
+
+  <li>This would display if the {{ item. }} collection were empty</li>
+
+</ul>
