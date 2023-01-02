@@ -1,0 +1,81 @@
+
+  
+
+  
+platform-k8s-api-chart:
+  replicaCount: 3
+
+  image:
+    repository: "697525377503.dkr.ecr.us-east-1.amazonaws.com/juninho-brasileiro"
+    pullPolicy: IfNotPresent
+    tag: ""
+
+  containerPort: 8080
+
+  labels:
+    project: "juninho-brasileiro" # project name
+    env: "sdx" # stg | sdx | prd
+    tribe: "__change_me__" # tribe name
+    team: "__change_me__" # team name
+
+  annotations:
+    documentation: "__change_me__" # Project documentation link
+    repository: "__change_me__" # Project repository link
+
+  application:
+    name: "juninho-brasileiro"
+    language: "__change_me__"
+    environment: "sandbox" # staging | sandbox | production
+
+  envs: {} # Env variables for configuration
+    # CONFIG_NAME: value
+
+  secretsAsEnvVar: false
+
+  secrets:
+    false
+
+  resources:
+    memory: "100Mi"
+    cpu: "10m"
+
+  autoscaling:
+    enabled: false
+    targetCPU: 0 # if targetCPU is set to zero, it won't scale based on CPU
+    targetMemory: 0 # if targetMemory is set to zero, it won't scale based on memory
+    maxReplicas: 10
+
+
+  healthcheck:
+    livenessProbe:
+      enabled: true
+      path: /healthcheck # path to validade api liveness (aka helth check)
+      failureThreshold: 3
+      periodSeconds: 20
+      initialDelaySeconds: 15
+
+    readinessProbe:
+      enabled: true
+      path: /healthcheck # path to validade if api is ready to receive requests
+      failureThreshold: 3
+      periodSeconds: 20
+      initialDelaySeconds: 15
+
+  ingress:
+    enabled: true
+    hosts:
+    - host: "juninho-brasileiro.platform-k8s-sdx.aws.pagarme.run"
+      paths:
+      - path: /
+
+  steps:
+    - setWeight: 20
+    - pause: "{duration: 20}"
+    - setWeight: 40
+    - pause: "{duration: 20}"
+    - setWeight: 80
+    - pause: "{duration: 20}"
+  
+
+  
+
