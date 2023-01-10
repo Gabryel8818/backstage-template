@@ -1,0 +1,42 @@
+
+name: build and push juninho-brasileiro
+on:
+  push:
+    branches:
+      - "main"
+jobs:
+  build:
+    uses: pagarme/platform-k8s-github-actions/.github/workflows/build_and_push.yml@main
+    with:
+      PROVIDER: "aws"
+      ENVIRONMENT: "prd"
+      REGISTRY_NAME: "juninho-brasileiro"
+      RUNS_ON: "small-runner"
+    secrets:
+      AWS_REGION: 
+      AWS_ECR_SECRET_ACCESS_KEY: 
+      AWS_ECR_ACCESS_KEY_ID: 
+
+  deploy_sdx:
+    needs: [build]
+    uses: pagarme/platform-k8s-github-actions/.github/workflows/deploy_argocd.yml@main
+    with:
+      ENVIRONMENT: "sdx"
+      RUNS_ON: "small-runner"
+    secrets:
+      AWS_REGION: 
+      AWS_ECR_SECRET_ACCESS_KEY: ""
+      AWS_ECR_ACCESS_KEY_ID: ""
+
+
+deploy_prd:
+    needs: [build, deploy_sdx]
+    uses: pagarme/platform-k8s-github-actions/.github/workflows/deploy_argocd.yml@main
+    with:
+      ENVIRONMENT: "prd"
+      RUNS_ON: "small-runner"
+    secrets:
+      AWS_REGION: 
+      AWS_ECR_SECRET_ACCESS_KEY: 
+      AWS_ECR_ACCESS_KEY_ID: 
+
