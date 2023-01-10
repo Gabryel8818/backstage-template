@@ -1,0 +1,9 @@
+secrets:
+  - name: ALO1
+  - name: ALO2
+  
+environments:
+  - name: stg
+  - name: sdx
+  - name: prd
+  
