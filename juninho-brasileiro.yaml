@@ -1,0 +1,8 @@
+secrets:
+  - name: oi
+  - name: oi9
+  environments:
+  - name: stg
+  - name: sdx
+  - name: prd
+  
